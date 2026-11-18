@@ -31,7 +31,7 @@ test('原文被破坏时拒绝当成有效归档',()=>environment(async({directo
 }));
 test('HTTP接收与查询形成闭环',()=>environment(async({directory,source})=>{
  const intake=await startIntake({origin:source.origin,directory});
- try{assert.equal((await fetch(intake.origin+'/health')).status,200);assert.equal((await fetch(intake.origin+'/collect',{method:'POST'})).status,200);assert.ok((await(await fetch(intake.origin+'/records')).json()).length);}
+ try{assert.equal((await fetch(intake.origin+'/health')).status,200);assert.equal((await fetch(intake.origin+'/collect',{method:'POST'})).status,200);const view=await(await fetch(intake.origin+'/lineage')).json();assert.ok(view.summary.admissions>0);assert.ok(view.runs.length>0);}
  finally{await intake.close();}
 }));
 test('来源地址不能跳到其他站点',()=>environment(async({get})=>{await assert.rejects(()=>get('https://example.invalid/'),/超出来源范围/);}));
