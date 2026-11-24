@@ -4,7 +4,7 @@ import {join} from 'node:path';
 
 export const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 
-async function replace(path, bytes) {
+export async function replace(path, bytes) {
   const temporary = path + '.' + randomUUID() + '.tmp';
   const handle = await open(temporary, 'wx', 0o600);
   try { await handle.writeFile(bytes); await handle.sync(); } finally { await handle.close(); }

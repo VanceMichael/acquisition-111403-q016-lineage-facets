@@ -95,6 +95,107 @@ export const routes=[
   }
 ];
 export const phases={
+  "open-run": [
+    {
+      "path": "/events",
+      "body": {
+        "next": "/events?offset=7",
+        "events": [
+          {
+            "eventId": "e4",
+            "eventTime": 40,
+            "eventType": "START",
+            "run": {
+              "runId": "run3"
+            },
+            "job": {
+              "namespace": "local",
+              "name": "prepare"
+            },
+            "inputs": [
+              {
+                "namespace": "local",
+                "name": "raw"
+              }
+            ]
+          }
+        ]
+      },
+      "method": "GET",
+      "status": 200,
+      "query": {
+        "offset": "0"
+      },
+      "headers": {}
+    },
+    {
+      "path": "/events",
+      "body": {
+        "next": null,
+        "events": [
+          {
+            "eventId": "e5",
+            "eventTime": 45,
+            "eventType": "RUNNING",
+            "run": {
+              "runId": "run3"
+            },
+            "job": {
+              "namespace": "local",
+              "name": "prepare"
+            },
+            "outputs": [
+              {
+                "namespace": "local",
+                "name": "clean",
+                "outputFacets": {
+                  "rows": {
+                    "producer": "p1",
+                    "schemaURL": "urn:rows:v1",
+                    "count": 5
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "method": "GET",
+      "status": 200,
+      "query": {
+        "offset": "7"
+      },
+      "headers": {}
+    }
+  ],
+  "open-run-closed": [
+    {
+      "path": "/events",
+      "body": {
+        "next": null,
+        "events": [
+          {
+            "eventId": "e6",
+            "eventTime": 50,
+            "eventType": "COMPLETE",
+            "run": {
+              "runId": "run3"
+            },
+            "job": {
+              "namespace": "local",
+              "name": "prepare"
+            }
+          }
+        ]
+      },
+      "method": "GET",
+      "status": 200,
+      "query": {
+        "offset": "0"
+      },
+      "headers": {}
+    }
+  ],
   "rerun": [
     {
       "path": "/events",
